@@ -1,0 +1,120 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 75%;
+  text-align: center;
+  padding: 10px;
+}
+input{
+
+padding-top: 15px;
+padding-left: 15px;
+padding-right: 15px;
+padding-bottom: 15px;
+
+border-radius: 5px;
+
+}
+.cname > input{
+font-size: 20px;
+padding:50px;
+border-radius: 5px;
+}
+.date > input{
+font-size: 20px;
+padding:25px;
+border-radius: 5px;
+}
+
+.cname{
+width: 30%;
+float: left;
+height:200px;
+padding-left: 240px;
+padding-top: 50px;
+<!--background: yellow;-->
+}
+.date{
+width: 30%;
+float:right;
+padding-top: 50px;
+
+<!--background: cyan;-->
+}
+.content{
+padding-top: 250px;
+
+}
+select{
+padding-right: 40px;
+padding-left: 40px;
+padding-top: 15px;
+padding-bottom: 15px;
+border-radius: 5px;
+}
+::placeholder {
+  color: black;
+  font-size: 20px;
+}
+</style>
+<div class="cname">
+
+<label style="font-size:30px">Customer Name:&nbsp;{{inv_cust_name}} </label>
+
+</div>
+<div class="date">
+    <label style="font-size:24px">Date: {{inv_date}}</label><br><br>
+    <label style="font-size:24px">Invoice Number: {{inv_no}}</label><br><br>
+
+
+</div>
+<center>
+
+
+<div class="content">
+
+    <table>
+        <tr>
+            <td>Product name</td>
+            <td>Product Size</td>
+            <td>Product Unit</td>
+            <td>Product Quantity</td>
+            <td>Product Rate</td>
+            <td>Sub total</td>
+        </tr>
+
+        {% for i in inv %}
+         <form action="{{i.id}}/update_inv" method="post">
+             {% csrf_token %}
+        <tr>
+            <input type="text" name="customer_name" hidden value="{{inv_cust_name}}">
+            <input type="datetime-local" name="date" hidden value="{{inv_date}}">
+            <td><input type="text" name="prod_name" hidden value="{{i.prod_name}}">{{i.prod_name}}</td>
+            <td><input type="text" name="size" hidden value="{{i.prod_size}}">{{i.prod_size}}</td>
+            <td><input type="text" name="unit" hidden value="{{i.prod_unit}}">{{i.prod_unit}}</td>
+            <td><input type="text" name="quant" placeholder="{{i.prod_quant}}" value="{{i.prod_quant}}" autofocus></td>
+            <td><input type="text" name="rate" placeholder="{{i.prod_rate}}" value="{{i.prod_rate}}"></td>
+                 <td><input type="text" name="total" placeholder="{{i.total}}" required disabled></td>
+<!--            <td><input type="text" name="total" placeholder="{{i.total}}" value="{{i.total}}"></td>-->
+            <td> <button type="submit">Update</button></td>
+        </tr>
+         </form>
+        {% endfor %}
+
+    </table><br><br><br>
+    <label style="font-size:30px">Total Bill: {{ total }}</label><br><br><br><br>
+     <form action="./save_inv" method="post">
+    {% csrf_token %}
+    <button type="submit">Done</button>
+
+    </form><br><br><br><br><br>
+</div>
+
+
+</center>
+{% endblock content %}

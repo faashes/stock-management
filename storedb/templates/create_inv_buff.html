@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 75%;
+  text-align: center;
+  padding: 10px;
+}
+input{
+
+padding-top: 15px;
+padding-left: 15px;
+padding-right: 15px;
+padding-bottom: 15px;
+
+border-radius: 5px;
+
+}
+.cname > input{
+font-size: 20px;
+padding:50px;
+border-radius: 5px;
+}
+.date > input{
+font-size: 20px;
+padding:25px;
+border-radius: 5px;
+}
+
+.cname{
+width: 30%;
+float: left;
+height:200px;
+padding-left: 240px;
+padding-top: 50px;
+<!--background: yellow;-->
+}
+.date{
+width: 30%;
+float:right;
+padding-top: 50px;
+
+<!--background: cyan;-->
+}
+.content{
+padding-top: 250px;
+
+}
+select{
+padding-right: 40px;
+padding-left: 40px;
+padding-top: 15px;
+padding-bottom: 15px;
+border-radius: 5px;
+}
+</style>
+<div class="cname">
+<form action="./inv_addmore" method="post">
+     {% csrf_token %}
+
+    <label style="font-size:35px">Name : {{cust_name}}</label>
+</div>
+<div class="date">
+        <label style="font-size:35px">Date : {{date}}</label><br><br>
+        <label style="font-size:35px">Invoice number: {{inv}}</label>
+
+</div>
+<center>
+
+
+<div class="content">
+
+    <table>
+        <tr>
+            <td>Product name</td>
+            <td>Product Size</td>
+            <td>Product Unit</td>
+            <td>Product Quantity</td>
+            <td>Product Rate</td>
+            <td>Total</td>
+        </tr>
+        {% for c in inv_buff_list %}
+        <tr>
+            <td>{{c.prod_name}}</td>
+            <td>{{c.prod_size}}</td>
+            <td>{{c.prod_unit}}</td>
+            <td>{{c.prod_quant}}</td>
+            <td>{{c.prod_rate}}</td>
+            <td>{{c.total}}</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <td>
+                <select name="prod_name" id="prod_name">
+                {% for product in prod_list %}
+                <option value="{{product.prod_name}}">{{product.prod_name}}</option>
+                {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select name="size" id="size">
+                {% for prod in prod_size_list %}
+                <option value="{{prod.prod_size}}">{{prod.prod_size}}</option>
+                {% endfor %}
+                </select>
+            </td>
+<!--            <td><input type="text" name="size" placeholder="Enter Size"></td>-->
+            <td>
+                <select name="unit" id="unit">
+                {% for prod in prod_unit_list %}
+                <option value="{{prod.prod_unit}}">{{prod.prod_unit}}</option>
+                {% endfor %}
+                </select>
+            </td>
+<!--            <td><input type="text" name="unit" placeholder="(Ltr/Kg/Grams)"></td>-->
+            <td><input type="text" name="quant" placeholder="Enter Quantity" required autofocus></td>
+            <td><input type="text" name="rate" placeholder="Enter Price" required></td>
+            <td><input type="text" name="total" placeholder="Generated Automatically" required disabled></td>
+        </tr>
+
+
+
+    </table><br><br><br>
+ <button type="submit">Add More</button>
+</form><br><br><br>
+    <form action="insertInv" method="post">
+        {% csrf_token %}
+        <button type="submit">Done</button>
+    </form><br><br>
+
+ <form action="cancel" method="post">
+        {% csrf_token %}
+        <button type="submit">Cancel</button>
+    </form><br><br>
+</div>
+</center>
+
+{% endblock content %}

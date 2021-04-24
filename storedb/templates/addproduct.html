@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table{
+width: 90%;
+}
+    input{
+
+padding-top: 15px;
+padding-left: 5px;
+padding-right: -1px;
+padding-bottom: 15px;
+
+border-radius: 5px;
+
+}
+</style>
+<center>
+    {{message}}
+<h1>Enter Product details: </h1>
+
+    <table>
+       <tr>
+           <td>Product Name</td>
+           <td>Product Code</td>
+           <td>Product Size</td>
+           <td>Product Unit</td>
+           <td>Opening Quantity</td>
+           <td>Price</td>
+           <td>Reorder Level</td>
+       </tr>
+<form action="insertprod" method="post">
+        <tr>
+            <td><input type="text" name="prod_name" placeholder="Enter Product Name" required autofocus></a></td>
+            <td><input type="text" name="code" placeholder="Enter Product Code" required></td>
+            <td><input type="text" name="size" placeholder="Enter Product Size" required></td>
+            <td><input type="text" name="unit" placeholder="Enter Product Unit" required></a></td>
+            <td><input type="text" name="stock" placeholder="Enter Opening Quantity" required></a></td>
+            <td><input type="text" name="price" placeholder="Enter Price" required></a></td>
+            <td><input type="text" name="reorder" placeholder="Reorder Level" required></a></td>
+        </tr>
+
+
+</table>
+<br><br>
+
+        {% csrf_token %}
+        <button type="submit">Save</button>
+    </form>
+    <br><br>
+       <form action="cancel" method="post">
+        {% csrf_token %}
+            <button type="submit">Cancel</button>
+    </form><br>
+</center>
+{% endblock content %}

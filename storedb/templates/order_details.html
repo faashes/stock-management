@@ -1,0 +1,123 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 75%;
+  text-align: center;
+  padding: 10px;
+}
+input{
+
+padding-top: 15px;
+padding-left: 15px;
+padding-right: 15px;
+padding-bottom: 15px;
+
+border-radius: 5px;
+
+}
+.cname > input{
+font-size: 20px;
+padding:50px;
+border-radius: 5px;
+}
+.date > input{
+font-size: 20px;
+padding:25px;
+border-radius: 5px;
+}
+
+.cname{
+width: 30%;
+float: left;
+height:200px;
+padding-left: 240px;
+padding-top: 50px;
+<!--background: yellow;-->
+}
+.date{
+width: 30%;
+float:right;
+padding-top: 50px;
+
+<!--background: cyan;-->
+}
+.content{
+padding-top: 250px;
+
+}
+select{
+padding-right: 40px;
+padding-left: 40px;
+padding-top: 15px;
+padding-bottom: 15px;
+border-radius: 5px;
+}
+</style>
+<h1><u><center>Order Details</center> </u> </h1><br>
+<div class="cname">
+
+<label style="font-size:30px">Supplier Name: {{order_supp_name}}</label>
+
+</div>
+<div class="date">
+    <label style="font-size:24px">Date: {{order_date}}</label><br><br>
+    <label style="font-size:24px">Order Number: {{order_no}}</label><br><br>
+
+
+</div>
+<center>
+
+
+<div class="content">
+
+    <table>
+        <tr>
+            <td>Product name</td>
+            <td>Product Size</td>
+            <td>Product Unit</td>
+            <td>Product Quantity</td>
+            <td>Product Rate</td>
+            <td>Sub total</td>
+        </tr>
+        {% for i in order %}
+        <tr>
+            <td>{{i.prod_name}}</td>
+            <td>{{i.prod_size}}</td>
+            <td>{{i.prod_unit}}</td>
+            <td>{{i.prod_quant}}</td>
+            <td>{{i.prod_rate}}</td>
+            <td>{{i.total}}</td>
+        </tr>
+        {% endfor %}
+
+    </table><br><br><br>
+  <label style="font-size:30px">Total Bill: {{ total }}
+  </label><br><br><br><br>
+     <form action="./printorder/{{order_no}}" method="post">
+    {% csrf_token %}
+    <button type="submit">Print Order</button>
+
+    </form>
+    <br><br>
+    <form action="{{order_no}}/edit_order" method="post">
+    {% csrf_token %}
+    <button type="submit">Edit Order</button>
+
+    </form><br>
+  </label><br>
+    <form action="./toorderlists" method="post">
+        {% csrf_token %}
+        <button type="submit">Go back to Lists</button>
+
+    </form><br><br>
+
+</div>
+
+
+</center>
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<center>
+    <h1>Invoice Lists:</h1>
+<table>
+            <tr>
+                <td>Invoice Date</td>
+                <td>Product Name</td>
+                <td>Invoice Number</td>
+                <td>Customer Name</td>
+            </tr>
+            {% for i in invoice %}
+
+            <tr>
+                <td>{{i.date}}</td>
+                <td>{{i.prod_name}}</td>
+                <td><a href="invoice/{{i.inv_no}}">{{i.inv_no}}</a></td>
+<!--                <form action="./supp">-->
+<!--                    <input type="text" hidden name="abc" value="{{i.inv_no}}">-->
+<!--                    <td><button type="submit">{{i.inv_no}}</button></td>-->
+<!--                </form>-->
+                <td>{{i.cust_name}}</td>
+            </tr>
+
+           {% endfor %}
+
+        </table><br><br>
+    <form action="cancel" method="post">
+        {% csrf_token %}
+            <button type="submit">Home</button>
+    </form><br><br>
+</center>
+{% endblock content %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store Management</title>
+</head>
+<style>
+    html{
+    background: #D3D3D3	;
+    font-family: 'Brush Script MT', cursive;
+    }
+    .hood{
+    color: black;
+    background: #ededed;
+    border-radius: 30px;
+    }
+
+    table, th, td {
+      table-layout: fixed;
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 70%;
+      text-align: center;
+      padding: 10px;
+    }
+    button {
+      background-color:black;
+      border: medium;
+      border-color: black;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      border-radius: 20px;
+      font-size: 16px;
+
+    }
+    button:hover{
+      background-color: grey;
+
+}
+</style>
+<center><h1 style="font-size: 50px">Store Management System</center>
+
+<div class="hood"><br><b>
+     {% block content %}
+
+     {% endblock content %}</b>
+
+</div>
+<body>
+
+</body>
+</html>

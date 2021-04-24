@@ -1,0 +1,123 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 75%;
+  text-align: center;
+  padding: 10px;
+}
+input{
+
+padding-top: 15px;
+padding-left: 15px;
+padding-right: 15px;
+padding-bottom: 15px;
+
+border-radius: 5px;
+
+}
+.cname > input{
+font-size: 20px;
+padding:50px;
+border-radius: 5px;
+}
+.date > input{
+font-size: 20px;
+padding:25px;
+border-radius: 5px;
+}
+
+.cname{
+width: 30%;
+float: left;
+height:200px;
+padding-left: 240px;
+padding-top: 50px;
+<!--background: yellow;-->
+}
+.date{
+width: 30%;
+float:right;
+padding-top: 50px;
+
+<!--background: cyan;-->
+}
+.content{
+padding-top: 250px;
+
+}
+select{
+padding-right: 40px;
+padding-left: 40px;
+padding-top: 15px;
+padding-bottom: 15px;
+border-radius: 5px;
+}
+</style>
+<h1><u><center>Sale Details</center> </u> </h1><br>
+<div class="cname">
+
+<label style="font-size:30px">Customer Name: {{inv_cust_name}}</label>
+
+</div>
+<div class="date">
+    <label style="font-size:24px">Date: {{inv_date}}</label><br><br>
+    <label style="font-size:24px">Invoice Number: {{inv_no}}</label><br><br>
+
+
+</div>
+<center>
+
+
+<div class="content">
+
+    <table>
+        <tr>
+            <td>Product name</td>
+            <td>Product Size</td>
+            <td>Product Unit</td>
+            <td>Product Quantity</td>
+            <td>Product Rate</td>
+            <td>Sub total</td>
+        </tr>
+        {% for i in inv %}
+        <tr>
+            <td>{{i.prod_name}}</td>
+            <td>{{i.prod_size}}</td>
+            <td>{{i.prod_unit}}</td>
+            <td>{{i.prod_quant}}</td>
+            <td>{{i.prod_rate}}</td>
+            <td>{{i.total}}</td>
+        </tr>
+        {% endfor %}
+
+    </table><br><br><br>
+    <label style="font-size:30px">Total Bill: {{ total }}</label><br><br><br><br>
+
+    <form action="./printinv/{{inv_no}}" method="post">
+    {% csrf_token %}
+    <button type="submit">Print Invoice</button>
+
+    </form>
+    <br><br>
+    <form action="{{inv_no}}/edit_inv" method="post">
+    {% csrf_token %}
+    <button type="submit">Edit Invoice</button>
+
+    </form><br><br>
+
+    <form action="./toinvlists" method="post">
+        {% csrf_token %}
+        <button type="submit">Go back to Invoice Lists</button>
+
+    </form>
+    <br><br><br>
+</div>
+
+
+</center>
+{% endblock content %}
