@@ -391,6 +391,7 @@ def toinvlists(request):
 
 
 def inv_details(request, inv_no):
+
     inv = Invoice.objects.all().filter(inv_no=inv_no)
     inv_cust_name = inv[0].cust_name
     inv_date = inv[0].date

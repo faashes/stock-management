@@ -15,6 +15,7 @@
     border-radius: 50px;
     }
   button {
+      width: 10%;
       background-color:black;
       border: medium;
       border-color: black;
@@ -68,6 +69,7 @@
 <!--       }-->
 .table1 {
     width:70%;
+    table-layout: fixed
     border:1px solid black;
     border-collapse:collapse;
     text-align: center;
@@ -148,12 +150,14 @@
 
 <style>
 .table2 {
-padding-left: 19%;
+padding-left: 13%;
 border-spacing: 15px;
 }
 .table2 td{
-padding-left:20px;
-padding-right:20px;
+
+width:200px;
+padding-left:30px;
+padding-right:30px;
 }
 </style>
 <br>
@@ -193,12 +197,11 @@ padding-right:20px;
 </form></td>
     </tr>
     <tr>
+        <td></td>
         <td> <form action="./show_transactions">
       &nbsp;&nbsp;&nbsp;<button type="submit">Last 10 transactions</button>
 </form><br><br></td>
         <td></td>
-        <td></td>
-
     </tr>
 </table>
 
