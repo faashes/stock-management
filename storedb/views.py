@@ -7,7 +7,7 @@ from datetime import date
 
 # Create your views here.
 
-
+#This is the source file
 def supplier_list(request):
     return HttpResponseRedirect(reverse('show_supp'))
 
