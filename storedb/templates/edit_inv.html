@@ -103,10 +103,44 @@ border-radius: 5px;
 <!--            <td><input type="text" name="total" placeholder="{{i.total}}" value="{{i.total}}"></td>-->
             <td> <button type="submit">Update</button></td>
         </tr>
-         </form>
-        {% endfor %}
+             </form>
+             {% endfor %}
+             </table><br>
+    <style>
 
-    </table><br><br><br>
+        .table4{
+        width:55%;
+        }
+        .table4 td{
+        width:30%;
+        }
+        .table5{
+        padding-left:45%;
+        }
+    </style>
+<div class="table5">
+    <table class="table4">
+        <tr>
+            <td>Discount</td>
+            <td>{{discount}}</td>
+        </tr>
+        <tr>
+            <td>Taxes</td>
+            <td>{{tax}}</td>
+        </tr>
+        <tr>
+            <td>Delivery Charge</td>
+            <td>{{delivery}}</td>
+        </tr>
+
+
+    </table><br></div>
+
+
+
+
+
+    <br><br><br>
     <label style="font-size:30px">Total Bill: {{ total }}</label><br><br><br><br>
      <form action="./save_inv" method="post">
     {% csrf_token %}

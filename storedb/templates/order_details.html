@@ -95,7 +95,35 @@ border-radius: 5px;
         </tr>
         {% endfor %}
 
-    </table><br><br><br>
+    </table><br><br><br><style>
+
+        .table4{
+        width:55%;
+        }
+        .table4 td{
+        width:30%;
+        }
+        .table5{
+        padding-left:45%;
+        }
+    </style>
+<div class="table5">
+    <table class="table4">
+        <tr>
+            <td>Discount</td>
+            <td>{{discount}}</td>
+        </tr>
+        <tr>
+            <td>Taxes</td>
+            <td>{{tax}}</td>
+        </tr>
+        <tr>
+            <td>Delivery Charge</td>
+            <td>{{delivery}}</td>
+        </tr>
+
+
+    </table><br></div>
   <label style="font-size:30px">Total Bill: {{ total }}
   </label><br><br><br><br>
      <form action="./printorder/{{order_no}}" method="post">

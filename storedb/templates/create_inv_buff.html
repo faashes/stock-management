@@ -123,7 +123,37 @@ border-radius: 5px;
 
 
 
-    </table><br><br><br>
+    </table><br><br><br></center>
+    <style>
+
+        .table4{
+        width:55%;
+        }
+        .table4 td{
+        width:30%;
+        }
+        .table5{
+        padding-left:69%;
+        }
+    </style>
+<div class="table5">
+    <table class="table4">
+        <tr>
+            <td>Add discount</td>
+            <td><input type="text" name="disc" placeholder={{discount}} value={{discount}}  style="width:90%" tabindex="-1"></td>
+        </tr>
+        <tr>
+            <td>Taxes</td>
+            <td><input type="text" name="tax" placeholder={{tax}} value={{tax}} style="width:90%" tabindex="-1"></td>
+        </tr>
+        <tr>
+            <td>Delivery Charge</td>
+            <td><input type="text" name="delivery" placeholder={{delivery}} value={{delivery}} style="width:90%" tabindex="-1"></td>
+        </tr>
+
+
+    </table><br></div>
+<center>
  <button type="submit">Add More</button>
 </form><br><br><br>
     <form action="insertInv" method="post">

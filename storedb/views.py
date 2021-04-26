@@ -296,7 +296,9 @@ def inv_buff(request):
         size = int(request.POST['size'])
         quantity = int(request.POST['quant'])
         rate = int(request.POST['rate'])
-
+        discount = int(request.POST['disc'])
+        tax = int(request.POST['tax'])
+        delivery = int(request.POST['delivery'])
         total = quantity * rate
 
         Inv_buff.objects.create(cust_name=request.POST['cust_name'],
@@ -307,7 +309,10 @@ def inv_buff(request):
                                 prod_unit=request.POST['unit'],
                                 prod_quant=request.POST['quant'],
                                 prod_rate=request.POST['rate'],
-                                total=total)
+                                total=total,
+                                discount=request.POST['disc'],
+                                taxes=request.POST['tax'],
+                                delivery=request.POST['delivery'])
         inv_buff_list = Inv_buff.objects.all()
         prod_unit_list = Product.objects.order_by().values('prod_unit').distinct()
         prod_size_list = Product.objects.order_by().values('prod_size').distinct()
@@ -316,7 +321,9 @@ def inv_buff(request):
             'inv_buff_list': inv_buff_list, 'prod_list': prod_list,
             'cust_name': inv_buff_list[0].cust_name, 'date': inv_buff_list[0].date,
             'inv': inv_buff_list[0].inv_no, "prod_unit_list": prod_unit_list,
-            "prod_size_list": prod_size_list}
+            "prod_size_list": prod_size_list,'discount': discount, 'tax': tax,
+            'delivery': delivery
+        }
         return render(request, 'create_inv_buff.html', context)
 
 
@@ -331,6 +338,9 @@ def inv_addmore(request):
     size = int(request.POST['size'])
     quantity = int(request.POST['quant'])
     rate = int(request.POST['rate'])
+    discount = int(request.POST['disc'])
+    tax = int(request.POST['tax'])
+    delivery = int(request.POST['delivery'])
 
     total = size * quantity * rate
 
@@ -342,20 +352,25 @@ def inv_addmore(request):
                             prod_unit=request.POST['unit'],
                             prod_quant=request.POST['quant'],
                             prod_rate=request.POST['rate'],
-                            total=total)
+                            total=total,
+                            discount=request.POST['disc'],
+                            taxes=request.POST['tax'],
+                            delivery=request.POST['delivery'])
 
     prod_unit_list = Product.objects.order_by().values('prod_unit').distinct()
     prod_size_list = Product.objects.order_by().values('prod_size').distinct()
     context = {'inv_buff_list': inv_buff_list, 'prod_list': prod_list,
                'cust_name': cust_name, 'date': date, 'inv': inv,
                "prod_unit_list": prod_unit_list, "prod_size_list":
-                   prod_size_list, 'total': total}
+                   prod_size_list, 'total': total,'discount': discount, 'tax': tax,
+            'delivery': delivery}
     return render(request, 'create_inv_buff.html', context)
 
 
 def insertInv(request):
     prod_list = Product.objects.all()
     inv_buff_list = Inv_buff.objects.all()
+
     for c in inv_buff_list:
         prod = get_object_or_404(Product, prod_name=c.prod_name)
 
@@ -370,7 +385,10 @@ def insertInv(request):
                                          prod_unit=c.prod_unit,
                                          prod_quant=c.prod_quant,
                                          prod_rate=c.prod_rate,
-                                         total=c.total)
+                                         total=c.total,
+                                         discount=c.discount,
+                                         taxes=c.taxes,
+                                         delivery=c.delivery)
         transaction = Transactions.objects.create(date=c.date,
                                                   prod_name=c.prod_name,
                                                   prod_quant=c.prod_quant,
@@ -398,11 +416,16 @@ def inv_details(request, inv_no):
     inv_total = inv[0].total
     inv_no = inv[0].inv_no
     total = 0
+    discount = inv[0].discount
+    tax = inv[0].taxes
+    delivery = inv[0].delivery
     for i in inv:
         total = i.total + total
+    final_total = total+discount+tax+delivery
     context = {'inv': inv, 'inv_cust_name': inv_cust_name,
                'inv_date': inv_date, 'inv_total': inv_total,
-               'inv_no': inv_no, 'total': total}
+               'inv_no': inv_no, 'total': final_total, 'discount':discount,
+               'tax':tax, 'delivery':delivery}
     return render(request, 'inv_details.html', context)
 
 
@@ -412,12 +435,17 @@ def edit_inv(request, inv_no):
     inv_date = inv[0].date
     inv_total = inv[0].total
     inv_no = inv[0].inv_no
+    discount = inv[0].discount
+    tax = inv[0].taxes
+    delivery = inv[0].delivery
     total = 0
     for i in inv:
         total = i.total + total
+    final_total = total + discount + tax + delivery
     context = {'inv': inv, 'inv_cust_name': inv_cust_name,
                'inv_date': inv_date, 'inv_total': inv_total, 'inv_no': inv_no,
-               'total': total}
+               'total': final_total, 'discount':discount,
+               'tax':tax, 'delivery':delivery}
     return render(request, 'edit_inv.html', context)
 
 
@@ -544,7 +572,7 @@ def show_details_order(request, order_no):
 
 
 def product_trans(request, prod_name):
-    prod_trans_list = Transactions.objects.all().filter(prod_name=prod_name)
+    prod_trans_list = Transactions.objects.order_by('-id').filter(prod_name=prod_name)
     return render(request, 'prod_trans_list.html', {'prod_trans_list': prod_trans_list})
 
 
@@ -637,6 +665,9 @@ def order_buff(request):
     size = int(request.POST['size'])
     quantity = int(request.POST['quant'])
     rate = int(request.POST['rate'])
+    discount = int(request.POST['disc'])
+    tax = int(request.POST['tax'])
+    delivery = int(request.POST['delivery'])
 
     total = size * quantity * rate
 
@@ -648,7 +679,11 @@ def order_buff(request):
                               prod_unit=request.POST['unit'],
                               prod_quant=request.POST['quant'],
                               prod_rate=request.POST['rate'],
-                              total=total)
+                              total=total,
+                              discount=request.POST['disc'],
+                              taxes=request.POST['tax'],
+                              delivery=request.POST['delivery']
+                              )
     order_buff_list = Order_buff.objects.all()
     prod_unit_list = Product.objects.order_by().values('prod_unit').distinct()
     prod_size_list = Product.objects.order_by().values('prod_size').distinct()
@@ -657,7 +692,8 @@ def order_buff(request):
         'order_buff_list': order_buff_list, 'prod_list': prod_list,
         'supp_name': order_buff_list[0].supp_name, 'date': order_buff_list[0].date,
         'order_no': order_buff_list[0].order_no, "prod_unit_list": prod_unit_list,
-        "prod_size_list": prod_size_list, 'total': total}
+        "prod_size_list": prod_size_list, 'total': total,'discount': discount, 'tax': tax,
+            'delivery': delivery}
     return render(request, 'create_order_buff.html', context)
 
 
@@ -672,6 +708,9 @@ def order_addmore(request):
     size = int(request.POST['size'])
     quantity = int(request.POST['quant'])
     rate = int(request.POST['rate'])
+    discount = int(request.POST['disc'])
+    tax = int(request.POST['tax'])
+    delivery = int(request.POST['delivery'])
 
     total = size * quantity * rate
 
@@ -683,14 +722,18 @@ def order_addmore(request):
                               prod_unit=request.POST['unit'],
                               prod_quant=request.POST['quant'],
                               prod_rate=request.POST['rate'],
-                              total=total)
+                              total=total,
+                              discount=request.POST['disc'],
+                              taxes=request.POST['tax'],
+                              delivery=request.POST['delivery'])
 
     prod_unit_list = Product.objects.order_by().values('prod_unit').distinct()
     prod_size_list = Product.objects.order_by().values('prod_size').distinct()
     context = {'order_buff_list': order_buff_list, 'prod_list': prod_list,
                'supp_name': supp_name, 'date': date, 'order_no': order_no,
                "prod_unit_list": prod_unit_list, "prod_size_list":
-                   prod_size_list, 'total': total}
+                   prod_size_list, 'total': total,'discount': discount, 'tax': tax,
+            'delivery': delivery}
     return render(request, 'create_order_buff.html', context)
 
 
@@ -710,7 +753,11 @@ def insertOrder(request):
                              prod_unit=c.prod_unit,
                              prod_quant=c.prod_quant,
                              prod_rate=c.prod_rate,
-                             total=c.total)
+                             total=c.total,
+                             discount=c.discount,
+                             taxes=c.taxes,
+                             delivery=c.delivery
+                             )
         transaction = Transactions.objects.create(date=c.date,
                                                   prod_name=c.prod_name,
                                                   prod_quant=c.prod_quant,
@@ -732,12 +779,17 @@ def order_details(request, order_no):
     order_date = order[0].date
     order_total = order[0].total
     order_no = order[0].order_no
+    discount = order[0].discount
+    tax = order[0].taxes
+    delivery = order[0].delivery
     total = 0
     for i in order:
         total = i.total + total
+    final_total = total + discount + tax + delivery
     context = {'order': order, 'order_supp_name': order_supp_name,
                'order_date': order_date, 'order_total': order_total,
-               'order_no': order_no, 'total': total}
+               'order_no': order_no, 'total': final_total, 'discount':discount,
+               'tax':tax, 'delivery':delivery}
     return render(request, 'order_details.html', context)
 
 
@@ -751,12 +803,17 @@ def edit_order(request, order_no):
     order_date = order[0].date
     order_total = order[0].total
     order_no = order[0].order_no
+    discount = order[0].discount
+    tax = order[0].taxes
+    delivery = order[0].delivery
     total = 0
     for i in order:
         total = i.total + total
+    final_total = total + discount + tax + delivery
     context = {'order': order, 'order_supp_name': order_supp_name,
                'order_date': order_date, 'order_total': order_total, 'order_no': order_no,
-               'total': total}
+               'total': final_total, 'discount':discount,
+               'tax':tax, 'delivery':delivery}
     return render(request, 'edit_order.html', context)
 
 

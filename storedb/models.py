@@ -25,6 +25,9 @@ class Invoice(models.Model):
     prod_quant = models.IntegerField()
     prod_rate = models.IntegerField()
     total = models.IntegerField()
+    discount = models.IntegerField(default=0)
+    taxes = models.IntegerField(default=0)
+    delivery = models.IntegerField(default=0)
 
     def __str__(self):
         return self.cust_name
@@ -40,6 +43,9 @@ class Inv_buff(models.Model):
     prod_quant = models.IntegerField()
     prod_rate = models.IntegerField()
     total = models.IntegerField()
+    discount = models.IntegerField(default=0)
+    taxes = models.IntegerField(default=0)
+    delivery = models.IntegerField(default=0)
 
     def __str__(self):
         return self.cust_name
@@ -54,6 +60,9 @@ class Order(models.Model):
     prod_quant = models.IntegerField()
     prod_rate = models.IntegerField()
     total = models.IntegerField()
+    discount = models.IntegerField(default=0)
+    taxes = models.IntegerField(default=0)
+    delivery = models.IntegerField(default=0)
 
     def __str__(self):
         return self.supp_name
@@ -68,6 +77,9 @@ class Order_buff(models.Model):
     prod_quant = models.IntegerField()
     prod_rate = models.IntegerField()
     total = models.IntegerField()
+    discount = models.IntegerField(default=0)
+    taxes = models.IntegerField(default=0)
+    delivery = models.IntegerField(default=0)
 
     def __str__(self):
         return self.supp_name
