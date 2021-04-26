@@ -25,7 +25,7 @@ border-radius: 5px;
 }
 .date > input{
 font-size: 20px;
-padding:25px;
+padding:3%;
 border-radius: 5px;
 }
 
@@ -33,7 +33,7 @@ border-radius: 5px;
 width: 30%;
 float: left;
 height:200px;
-padding-left: 10%;
+padding-left: 12%;
 padding-top: 50px;
 <!--background: yellow;-->
 }
@@ -41,6 +41,7 @@ padding-top: 50px;
 width: 30%;
 float:right;
 padding-top: 50px;
+
 
 <!--background: cyan;-->
 }
@@ -61,7 +62,7 @@ border-radius: 5px;
    <form action="addcustomer_inv" method="post">
                     {% csrf_token %}
 <!--<input type="text" name="cust_name" placeholder="Enter Customer Name" required autofocus>-->
-     <span style="white-space: nowrap;"><select name="cust_name" id="cust_name">
+     <span style="white-space: nowrap;"><select name="cust_name" id="cust_name" >
                 <option value="add_new" selected>{{cust_text}}</option>
                 {% for cust in cust_list %}
                 <option value="{{cust.cust_name}}">{{cust.cust_name}}</option>
@@ -106,14 +107,14 @@ border-radius: 5px;
 
         <tr>
             <td>
-                <select name="prod_name" id="prod_name">
+                <select name="prod_name" id="prod_name" style="width:90%">
                 {% for product in prod_list %}
                 <option value="{{product.prod_name}}">{{product.prod_name}}</option>
                 {% endfor %}
                 </select>
             </td>
             <td>
-                <select name="size" id="size">
+                <select name="size" id="size" style="width:90%">
                 {% for prod in prod_size_list %}
                 <option value="{{prod.prod_size}}">{{prod.prod_size}}</option>
                 {% endfor %}
@@ -121,16 +122,16 @@ border-radius: 5px;
             </td>
 <!--            <td><input type="text" name="size" placeholder="Enter Size"></td>-->
             <td>
-                <select name="unit" id="unit">
+                <select name="unit" id="unit" style="width:90%">
                 {% for prod in prod_unit_list %}
                 <option value="{{prod.prod_unit}}">{{prod.prod_unit}}</option>
                 {% endfor %}
                 </select>
             </td>
 <!--            <td><input type="text" name="unit" placeholder="(Ltr/Kg/Grams)"></td>-->
-            <td><input type="text" name="quant" placeholder="Enter Quantity" required></td>
-            <td><input type="text" name="rate" placeholder="Enter Price" required></td>
-            <td><input type="text" name="total" placeholder="Generated Automatically" required disabled></td>
+            <td><input type="text" name="quant" placeholder="Enter Quantity" required style="width:90%"></td>
+            <td><input type="text" name="rate" placeholder="Enter Price" required style="width:90%"></td>
+            <td><input type="text" name="total" placeholder="Generated Automatically" required disabled style="width:90%"></td>
         </tr>
 
 
