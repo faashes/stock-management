@@ -18,7 +18,7 @@ class Product(models.Model):
 class Invoice(models.Model):
     cust_name = models.CharField(max_length=30)
     date = models.DateField()
-    inv_no = models.IntegerField()
+    inv_no = models.CharField(max_length=15)
     prod_name = models.CharField(max_length=30)
     prod_size = models.CharField(max_length=30)
     prod_unit = models.CharField(max_length=10)
@@ -36,7 +36,7 @@ class Invoice(models.Model):
 class Inv_buff(models.Model):
     cust_name = models.CharField(max_length=30)
     date = models.DateField()
-    inv_no = models.IntegerField()
+    inv_no = models.CharField(max_length=15)
     prod_name = models.CharField(max_length=30)
     prod_size = models.CharField(max_length=30)
     prod_unit = models.CharField(max_length=10)
@@ -53,7 +53,7 @@ class Inv_buff(models.Model):
 class Order(models.Model):
     supp_name = models.CharField(max_length=30)
     date = models.DateField()
-    order_no = models.IntegerField()
+    order_no = models.CharField(max_length=20)
     prod_name = models.CharField(max_length=30)
     prod_size = models.CharField(max_length=30)
     prod_unit = models.CharField(max_length=10)
@@ -70,7 +70,7 @@ class Order(models.Model):
 class Order_buff(models.Model):
     supp_name = models.CharField(max_length=30)
     date = models.DateField()
-    order_no = models.IntegerField()
+    order_no = models.CharField(max_length=20)
     prod_name = models.CharField(max_length=30)
     prod_size = models.CharField(max_length=30)
     prod_unit = models.CharField(max_length=10)
@@ -89,14 +89,14 @@ class Transactions(models.Model):
     prod_name = models.CharField(max_length=30)
     prod_quant = models.IntegerField()
     name = models.CharField(max_length=20)
-    number = models.IntegerField()
+    number = models.CharField(max_length=15)
 
     def __str__(self):
         return self.prod_name
 
 class Customer(models.Model):
     cust_name = models.CharField(max_length=20)
-    inv_no = models.IntegerField(default=0)
+    inv_no = models.CharField(max_length=20)
     # copy from here
     ph1 = models.CharField(max_length= 14, default= "")
     ph2 = models.CharField(max_length=14, default= "")
@@ -107,7 +107,7 @@ class Customer(models.Model):
 
 class Supplier(models.Model):
     supp_name = models.CharField(max_length=20)
-    order_no = models.IntegerField(default=0)
+    order_no = models.CharField(max_length=20)
     ph1 = models.CharField(max_length=14, default="")
     ph2 = models.CharField(max_length=14, default="")
     address = models.CharField(max_length=100, default="")

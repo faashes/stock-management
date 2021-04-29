@@ -94,14 +94,14 @@ border-radius: 5px;
 
         <tr>
             <td>
-                <select name="prod_name" id="prod_name">
+                <select name="prod_name" id="prod_name" style="width:90%">
                 {% for product in prod_list %}
                 <option value="{{product.prod_name}}">{{product.prod_name}}</option>
                 {% endfor %}
                 </select>
             </td>
             <td>
-                <select name="size" id="size">
+                <select name="size" id="size" style="width:90%">
                 {% for prod in prod_size_list %}
                 <option value="{{prod.prod_size}}">{{prod.prod_size}}</option>
                 {% endfor %}
@@ -109,7 +109,7 @@ border-radius: 5px;
             </td>
 <!--            <td><input type="text" name="size" placeholder="Enter Size"></td>-->
             <td>
-                <select name="unit" id="unit">
+                <select name="unit" id="unit" style="width:90%">
                 {% for prod in prod_unit_list %}
                 <option value="{{prod.prod_unit}}">{{prod.prod_unit}}</option>
                 {% endfor %}

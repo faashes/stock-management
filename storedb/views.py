@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from datetime import date
 
-
+#This is linked to github and krushiark.pythonanywhere
 # Create your views here.
 
 #This is the source file
@@ -267,7 +267,7 @@ def create_invoice(request):
 
 
 def inv_buff(request):
-    inv_no = int(request.POST['invoice'])
+    inv_no = request.POST['invoice']
     inv_list = Invoice.objects.order_by().values_list('inv_no', flat=True).distinct()
 
     if inv_no in inv_list:
@@ -421,7 +421,7 @@ def inv_details(request, inv_no):
     delivery = inv[0].delivery
     for i in inv:
         total = i.total + total
-    final_total = total+discount+tax+delivery
+    final_total = total-discount+tax+delivery
     context = {'inv': inv, 'inv_cust_name': inv_cust_name,
                'inv_date': inv_date, 'inv_total': inv_total,
                'inv_no': inv_no, 'total': final_total, 'discount':discount,
@@ -441,7 +441,7 @@ def edit_inv(request, inv_no):
     total = 0
     for i in inv:
         total = i.total + total
-    final_total = total + discount + tax + delivery
+    final_total = total - discount + tax + delivery
     context = {'inv': inv, 'inv_cust_name': inv_cust_name,
                'inv_date': inv_date, 'inv_total': inv_total, 'inv_no': inv_no,
                'total': final_total, 'discount':discount,
@@ -785,7 +785,7 @@ def order_details(request, order_no):
     total = 0
     for i in order:
         total = i.total + total
-    final_total = total + discount + tax + delivery
+    final_total = total - discount + tax + delivery
     context = {'order': order, 'order_supp_name': order_supp_name,
                'order_date': order_date, 'order_total': order_total,
                'order_no': order_no, 'total': final_total, 'discount':discount,
@@ -809,7 +809,7 @@ def edit_order(request, order_no):
     total = 0
     for i in order:
         total = i.total + total
-    final_total = total + discount + tax + delivery
+    final_total = total - discount + tax + delivery
     context = {'order': order, 'order_supp_name': order_supp_name,
                'order_date': order_date, 'order_total': order_total, 'order_no': order_no,
                'total': final_total, 'discount':discount,
